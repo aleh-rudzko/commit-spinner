@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Spinner</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
 </head>
 <body>
-<script src="propeller.js"></script>
+<script src="/static/propeller.js"></script>
 <script>
     var data = {"unsav": 0.5, "Yauheni Kartavykh": 0.3125, "Vladimir Rubin": 0.1875};
     $(document).ready(function () {
@@ -22,7 +22,7 @@
         Object.keys(data).forEach(function (username) {
             gavno[`spinner-${username}`] =
             spinners.push(username);
-            $('body').append('<img id="spinner-' + username + '" class="spinner" src="spinner.png" style="transform: rotate(0deg) translateZ(0px);">')
+            $('body').append('<img id="spinner-' + username + '" class="spinner" src="/static/spinner.png" style="transform: rotate(0deg) translateZ(0px);">')
         });
 //        });
 
@@ -34,7 +34,6 @@
                     inertia: 1,
                     speed: 1000 * data[username],
                     onRotate: function() {
-                        console.log(username, this.speed)
                     }
                 })
             )
