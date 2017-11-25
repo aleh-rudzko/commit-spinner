@@ -4,12 +4,13 @@ from flask import jsonify
 from flask import send_from_directory
 
 import settings
-from service import calculate_contributions, JsonFileStore
+from service import calculate_contributions, JsonFileStore, ClickCounter
 from github_client import InvalidSignature, verify_github_request
 
 app = Flask(__name__)
 
 store = JsonFileStore(settings.PATH_TO_DATA_FILE)
+click_counter = ClickCounter()
 
 
 @app.route('/webhook', methods=['POST'])
@@ -28,6 +29,15 @@ def webhook():
 def speeds():
     contributions = store.restore()
     return jsonify(contributions)
+
+
+@app.route('/clicks', methods=['POST', 'GET'])
+def clicks():
+    if request.method == 'GET':
+        return jsonify(click_counter.get_current_speed())
+    else:
+        count = request.get_json()['clicks']
+        click_counter.add_click_count(count)
 
 
 @app.route('/')

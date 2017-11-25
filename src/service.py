@@ -1,5 +1,6 @@
 import json
 import settings
+from datetime import datetime, timedelta
 from github_client import Client
 from collections import defaultdict
 
@@ -34,3 +35,19 @@ class JsonFileStore(Store):
     def restore(self):
         with open(self.path, 'r') as outfile:
             return json.load(outfile)
+
+
+class ClickCounter(object):
+    TARGET_SPEED = 300
+
+    def __init__(self):
+        self.clicks = []
+
+    def get_current_speed(self):
+        delta = datetime.now() - timedelta(seconds=5)
+        last_clicks = sum([click['count'] for click in self.clicks if click['timestamp'] > delta])
+
+        return min(last_clicks / 300, 1)
+
+    def add_click_count(self, count):
+        self.clicks.append({'timestamp': datetime.now(), 'count': count})
