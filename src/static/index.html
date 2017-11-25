@@ -12,49 +12,40 @@
 <body>
 <script src="/static/propeller.js"></script>
 <script>
-    var data = {"unsav": 0.5, "Yauheni Kartavykh": 0.3125, "Vladimir Rubin": 0.1875};
     $(document).ready(function () {
-        var spinners = [];
-        var spinnerList = [];
-        var gavno = {};
-//        $.get('https://wth3-spinner.herokuapp.com/calculate', function ( data ) {
-//            console.log(data);
-        Object.keys(data).forEach(function (username) {
-            gavno[`spinner-${username}`] =
-            spinners.push(username);
-            $('body').append('<img id="spinner-' + username + '" class="spinner" src="/static/spinner.png" style="transform: rotate(0deg) translateZ(0px);">')
-        });
-//        });
+        var app = {};
 
-        console.log(spinners);
-//        console.log(spinners.map(spinnerUsername => document.getElementById((`spinner-${spinnerUsername}`))));
-        spinners.forEach(function( username ) {
-            spinnerList.push(
-                new Propeller(document.getElementById(`spinner-${username}`), {
+        const addSpinner = (username, spinnerSpeed) => {
+            const spinnerId = `spinner-${username}`;
+            $('body').append(`<img id="${spinnerId}" class="spinner" src="spinner.png" style="transform: rotate(0deg) translateZ(0px);">`);
+            app[username] = {
+                spinnerId: spinnerId,
+                spinner: new Propeller(document.getElementById(spinnerId), {
                     inertia: 1,
-                    speed: 1000 * data[username],
-                    onRotate: function() {
-                    }
+                    speed: 100 * spinnerSpeed
                 })
-            )
-        })
-//        const spinnerList = new Propeller(spinners.map(spinnerUsername => document.getElementById((`spinner-${spinnerUsername}`))), {
-//            inertia: 1,
-//            speed: 1000,
-//            onRotate: () => console.log(this.speed)
-//    })
-//        ;
-//        var spinnerElement = document.getElementById('spinner');
-//        var spinner = new Propeller(spinnerElement, {
-//            inertia: 1,
-//            speed: 1000,
-//            onRotate: function () {
-//                console.log(this.speed);
-//            }
-//        });
-//        setTimeout(function () {
-//            spinner.setSpeed(500);
-//        }, 3000);
+            };
+        }
+
+        $.get('https://wth2017.hypershape.club/speeds', function (data) {
+            Object.keys(data).forEach(function (username) {
+                const spinnerSpeed = data[username];
+                addSpinner(username, spinnerSpeed);
+            });
+        });
+        const interval = setInterval(function () {
+            $.get('https://wth2017.hypershape.club/speeds', function (data) {
+                Object.keys(data).forEach(function (username) {
+                    const spinnerSpeed = data[username];
+                    if (app.hasOwnProperty(username)) {
+                        const spinner = app[username].spinner;
+                        spinner.setSpeed(100 * spinnerSpeed);
+                    } else {
+                        addSpinner(username, spinnerSpeed);
+                    }
+                });
+            });
+        }, 3000);
     });
 </script>
 
