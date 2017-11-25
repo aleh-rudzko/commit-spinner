@@ -21,7 +21,16 @@ def calculate_contributions():
     return contributions
 
 
-def upload_to_file(data):
-    with open(settings.PATH_TO_DATA_FILE, 'w') as outfile:
-        json.dump(data, outfile)
-    print('uploaded to file.')
+class Store(object):
+    def __init__(self, path, *args, **kwargs):
+        self.path = path
+
+
+class JsonFileStore(Store):
+    def save(self, data):
+        with open(self.path, 'w') as outfile:
+            json.dump(data, outfile)
+
+    def restore(self):
+        with open(self.path, 'r') as outfile:
+            return json.load(outfile)

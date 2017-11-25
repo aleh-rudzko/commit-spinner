@@ -1,10 +1,14 @@
+
 from flask import Flask, request, abort
 import json
 
-from service import calculate_contributions, upload_to_file
+import settings
+from service import calculate_contributions, JsonFileStore
 from github_client import InvalidSignature, verify_github_request
 
 app = Flask(__name__)
+
+store = JsonFileStore(settings.PATH_TO_DATA_FILE)
 
 
 @app.route('/webhook', methods=['POST'])
@@ -15,11 +19,11 @@ def webhook():
     #     abort(403)
 
     contributions = calculate_contributions()
-    upload_to_file(contributions)
+    store.save(contributions)
     return "Ok."
 
 
-@app.route('/calculate')
+@app.route('/speeds')
 def calculate():
-    contributions = calculate_contributions()
+    contributions = store.restore()
     return json.dumps(contributions)
