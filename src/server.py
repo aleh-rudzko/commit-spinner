@@ -1,12 +1,12 @@
 
 from flask import Flask, request, abort
-import json
+from flask import jsonify
 
 import settings
 from service import calculate_contributions, JsonFileStore
 from github_client import InvalidSignature, verify_github_request
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/frontend')
 
 store = JsonFileStore(settings.PATH_TO_DATA_FILE)
 
@@ -24,6 +24,11 @@ def webhook():
 
 
 @app.route('/speeds')
-def calculate():
+def speeds():
     contributions = store.restore()
-    return json.dumps(contributions)
+    return jsonify(contributions)
+
+
+@app.route('/hello')
+def root():
+    return app.send_static_file('index.html')
