@@ -1,0 +1,9 @@
+.spinner {
+    width: 500px;
+    /*height: auto;*/
+    /*position: absolute;*/
+    /*left: -5%;*/
+    /*z-index: 99;*/
+    display: flex;
+    /*margin:auto;*/
+}
