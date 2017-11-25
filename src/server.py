@@ -30,7 +30,7 @@ def speeds():
     return jsonify(contributions)
 
 
-@app.route('/hello')
+@app.route('/')
 def root():
     return app.send_static_file('index.html')
 
