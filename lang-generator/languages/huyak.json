@@ -1,0 +1,11 @@
+{
+  "OP_INC": "Huyak",
+  "OP_DEC": "Hyaks",
+  "OP_INCPTR": "VProduction",
+  "OP_DECPTR": "Kostili",
+  "OP_OUT": "Velosipedi",
+  "OP_JMP": "Bugi",
+  "OP_RET": "huyak",
+  "VALID_CHARS": "BHKPVacedgihklonpsruty",
+  "MAX_MEM": 65535
+}

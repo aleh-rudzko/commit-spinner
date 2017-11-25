@@ -1,0 +1,11 @@
+{
+  "OP_INC": "Ko",
+  "OP_DEC": "kO",
+  "OP_INCPTR": "Kudah",
+  "OP_DECPTR": "kudah",
+  "OP_OUT": "Kukarek",
+  "OP_JMP": "Kud",
+  "OP_RET": "kud",
+  "VALID_CHARS": "adehkKoOru",
+  "MAX_MEM": 65535
+}
