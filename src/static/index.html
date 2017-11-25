@@ -17,7 +17,7 @@
 
         const addSpinner = (username, spinnerSpeed) => {
             const spinnerId = `spinner-${username}`;
-            $('body').append(`<img id="${spinnerId}" class="spinner" src="spinner.png" style="transform: rotate(0deg) translateZ(0px);">`);
+            $('body').append(`<img id="${spinnerId}" class="spinner" src="/static/spinner.png" style="transform: rotate(0deg) translateZ(0px);">`);
             app[username] = {
                 spinnerId: spinnerId,
                 spinner: new Propeller(document.getElementById(spinnerId), {
