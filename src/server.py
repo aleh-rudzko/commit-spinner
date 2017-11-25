@@ -36,7 +36,10 @@ def clicks():
         return jsonify(click_counter.get_current_speed())
     else:
         count = request.get_json()['clicks']
-        click_counter.add_click_count(count)
+        print(count)
+        if count:
+            click_counter.add_click_count(count)
+        return "Ok."
 
 
 @app.route('/')

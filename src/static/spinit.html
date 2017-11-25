@@ -25,6 +25,7 @@
                 type: 'POST',
                 data: JSON.stringify({clicks: clickCounter}),
                 contentType: 'application/json',
+                url: '/clicks',
                 success: function(){
                     clickCounter = 0;
                 }
