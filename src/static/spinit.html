@@ -3,6 +3,10 @@
     <title>Instant Spinner Button!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="/static/spinit.css" type="text/css" media="screen">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="maincontent" align="center">
@@ -12,5 +16,24 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var clickCounter = 0;
+        $('#spinbutton').click(function() {clickCounter++ });
+        setInterval(function () {
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify({clicks: clickCounter}),
+                contentType: 'application/json',
+                success: function(){
+                    clickCounter = 0;
+                }
+            })
+            .always(function() {
+                clickCounter = 0;
+            })
+        }, 5000);
+    });
+</script>
 </body>
 </html>
