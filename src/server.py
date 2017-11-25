@@ -1,4 +1,3 @@
-
 from flask import Flask, request, abort
 from flask import jsonify
 from flask import send_from_directory
@@ -43,6 +42,11 @@ def clicks():
 @app.route('/')
 def root():
     return app.send_static_file('index.html')
+
+
+@app.route('/spinit')
+def spinit():
+    return app.send_static_file('spinit.html')
 
 
 @app.route('/static/<path:path>')
