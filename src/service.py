@@ -5,6 +5,7 @@ from github_client import Client
 from collections import defaultdict
 
 
+# Neural Network
 def calculate_contributions():
     github = Client(settings.OWNER_NAME, settings.REPO_NAME)
 
@@ -12,7 +13,6 @@ def calculate_contributions():
 
     contributions = defaultdict(int)
     for commit in commits:
-        print(commit)
         author_name = commit['commit']['author']['name']
         contributions[author_name] += 1
 
@@ -37,6 +37,7 @@ class JsonFileStore(Store):
             return json.load(outfile)
 
 
+# Machine Learning
 class ClickCounter(object):
     TARGET_SPEED = 300
 

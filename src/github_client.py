@@ -6,6 +6,7 @@ import requests
 import settings
 
 
+# Augmented Reality
 class Client(object):
     base_api_url = 'https://api.github.com'
 
