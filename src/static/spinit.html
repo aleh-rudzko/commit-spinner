@@ -52,7 +52,7 @@
 
                     $('#speed').text((Math.floor(speed * 100) / 100) + ' кликов/секунду');
 
-                    if (speed < 1) {
+                    if (speed < 300) {
                         $('.motivation-text').html(motivationWords[Math.floor(Math.random()*motivationWords.length)]);
                     } else {
                         $('.motivation-text').html(winWord);
