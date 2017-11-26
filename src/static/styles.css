@@ -1,9 +1,33 @@
-.spinner {
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.x-spinner-item {
+	display: inline-block;
+}
+
+.x-spinner-item .name {
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 3rem;
+}
+
+.x-spinner-item .spinner-image {
     width: 500px;
     height: 500px;
-    /*position: absolute;*/
-    /*left: -5%;*/
-    /*z-index: 99;*/
-    /*display: flex;*/
-    /*margin:auto;*/
+}
+
+.x-spinner-item .spinner-container {
+	position: relative;
+}
+.x-spinner-item .spinner-container .speed {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 2rem;
 }

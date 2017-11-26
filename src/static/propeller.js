@@ -92,7 +92,7 @@
     p.addListeners = function () {
         this.listenersInstalled = true;
 
-        if ('ontouchstart' in document.documentElement) {
+        /*if ('ontouchstart' in document.documentElement) {
             this.touchElement.addEventListener('touchstart', this.onRotationStart);
             this.touchElement.addEventListener('touchmove', this.onRotated);
             this.touchElement.addEventListener('touchend', this.onRotationStop);
@@ -106,13 +106,13 @@
             this.touchElement.addEventListener('dragstart', this.returnFalse);
         }
 
-        this.touchElement.ondragstart = this.returnFalse;
+        this.touchElement.ondragstart = this.returnFalse;*/
     }
 
     p.removeListeners = function () {
         this.listenersInstalled = false;
 
-        if ('ontouchstart' in document.documentElement) {
+        /*if ('ontouchstart' in document.documentElement) {
             this.touchElement.removeEventListener('touchstart', this.onRotationStart);
             this.touchElement.removeEventListener('touchmove', this.onRotated);
             this.touchElement.removeEventListener('touchend', this.onRotationStop);
@@ -124,7 +124,7 @@
             this.touchElement.removeEventListener('mouseup', this.onRotationStop);
             this.touchElement.removeEventListener('mouseleave', this.onRotationStop);
             this.touchElement.removeEventListener('dragstart', this.returnFalse);
-        }
+        }*/
     }
 
     p.bind = function () {

@@ -10,20 +10,65 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div id='root'>
+    <div id='spinners_container'></div>
+</div>
+
+<div style='display:none'>
+
+<div id='spinner_item_template' class='x-spinner-item'>
+    <p class='name'></p>
+    <p class='spinner-container'><img class='spinner-image' src='/static/spinner.png'><span class='speed'></span></p>
+</div>
+
+</div>
+
 <script src="/static/propeller.js"></script>
 <script>
-    $(document).ready(function () {
+    $(function () {
         var app = {};
 
+        var spinnersContainerEl = document.getElementById('spinners_container');
+
+        var spinnerItemTemplateEl = document.getElementById('spinner_item_template');
+        spinnerItemTemplateEl.removeAttribute('id');
+
+        function SpinnerView(options) {
+            var name = options.name;
+
+            var element = spinnerItemTemplateEl.cloneNode(true),
+                nameEl = element.querySelector('.name'),
+                imageEl = element.querySelector('.spinner-image'),
+                speedEl = element.querySelector('.speed');
+
+            nameEl.innerText = name;
+
+            var propeller = new Propeller(imageEl, {
+                inertia: 1,
+                speed: 0
+            });
+
+            this.getElement = function() { return element; };
+
+            this.setSpeed = function(speed) {
+                speedEl.innerText = (Math.floor(speed * 10000) / 100) + '%';
+
+                propeller.setSpeed(100 * speed);
+            };
+        }
+
         const addSpinner = (username, spinnerSpeed) => {
-            const spinnerId = `spinner-${username}`;
-            $('body').append(`<img id="${spinnerId}" class="spinner" src="/static/spinner.png" style="transform: rotate(0deg) translateZ(0px);">`);
+            var spinnerView = new SpinnerView({
+                name: username
+            });
+
+            spinnersContainerEl.appendChild(spinnerView.getElement());
+
+            spinnerView.setSpeed(spinnerSpeed);
+
             app[username] = {
-                spinnerId: spinnerId,
-                spinner: new Propeller(document.getElementById(spinnerId), {
-                    inertia: 1,
-                    speed: 100 * spinnerSpeed
-                })
+                view: spinnerView
             };
         }
 
@@ -37,9 +82,11 @@
             $.get('https://wth2017.hypershape.club/speeds', function (data) {
                 Object.keys(data).forEach(function (username) {
                     const spinnerSpeed = data[username];
-                    if (app.hasOwnProperty(username)) {
-                        const spinner = app[username].spinner;
-                        spinner.setSpeed(100 * spinnerSpeed);
+
+                    var spinnerInfo = app[username];
+
+                    if (spinnerInfo) {
+                        spinnerInfo.view.setSpeed(spinnerSpeed);
                     } else {
                         addSpinner(username, spinnerSpeed);
                     }
