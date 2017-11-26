@@ -1,5 +1,5 @@
 import hmac
-from datetime import datetime
+from datetime import datetime, timedelta
 from sys import hexversion
 
 import requests
@@ -17,7 +17,7 @@ class Client(object):
         url = '{}/repos/{}/{}/commits'.format(
             self.base_api_url, self.owner, self.repo)
         params = {
-            'since': datetime.now().replace(hour=0, minute=0, second=0).isoformat()
+            'since': (datetime.now() - timedelta(hours=1)).isoformat()
         }
         response = requests.get(url, params=params)
         return response.json()
