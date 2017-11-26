@@ -11,7 +11,9 @@
 </head>
 <body>
 <div id="maincontent" align="center">
-    <h1>Spint IT!</h1>
+    <h1 class="title">What the hack ?!</h1>
+    <h1 class="title">Первый FUNОвый хакатон для разработчиков</h1>
+    <h1 class="title motivation-text"></h1>
     <h2 id="speed"></h2>
     <div class="spinitbutton">
         <button id="spinbutton"></button>
@@ -20,6 +22,19 @@
 <script>
     $(document).ready(function () {
         var clickCounter = 0;
+        var motivationWords = [
+            'Давай же!',
+            'Click that bitch',
+            'Двигай свои пальцы',
+            'О боги, ты можешь быстрее?',
+            'Это все на что ты способен?',
+            'И это ты называешь кликом?!',
+            'Где-то грустит котик, кликай?!',
+            'И все-таки она вертится',
+            'Все запускайте свои кликеры?',
+            "<code>setInterval(() => jQuery('#spinbutton').click(), 100)</code>"
+        ];
+        var winWord = 'Да есть жешь, Thank you!';
         $('#spinbutton').click(function() {clickCounter++ });
         setInterval(function () {
             $.ajax({
@@ -28,7 +43,14 @@
                 contentType: 'application/json',
                 url: '/clicks',
                 success: function(data){
-                    $('#speed').text(data);
+                    $('#speed').text(data + ' кликов/секунду');
+
+                    if (parseFloat(data) < 1) {
+                        $('.motivation-text').html(motivationWords[Math.floor(Math.random()*motivationWords.length)]);
+                    } else {
+                        $('.motivation-text').html(winWord);
+                    }
+
                     clickCounter = 0;
                 }
             })
