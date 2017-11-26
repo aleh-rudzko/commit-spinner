@@ -36,7 +36,7 @@ def clicks():
         return jsonify(click_counter.get_current_speed())
     else:
         count = request.get_json()['clicks']
-        print(count)
+        print('Count click:', count)
         if count:
             click_counter.add_click_count(count)
         return jsonify(click_counter.get_current_speed())

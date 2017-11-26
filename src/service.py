@@ -50,5 +50,4 @@ class ClickCounter(object):
         return min(float(last_clicks) / 300, 1)
 
     def add_click_count(self, count):
-        print(self.clicks)
         self.clicks.append({'timestamp': datetime.now(), 'count': count})
