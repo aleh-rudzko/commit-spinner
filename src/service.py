@@ -45,9 +45,7 @@ class ClickCounter(object):
 
     def get_current_speed(self):
         delta = datetime.now() - timedelta(seconds=5)
-        print(delta.isoformat())
         last_clicks = sum([click['count'] for click in self.clicks if click['timestamp'] > delta])
-        print(last_clicks)
 
         return min(float(last_clicks) / 300, 1)
 
