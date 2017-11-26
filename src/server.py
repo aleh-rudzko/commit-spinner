@@ -14,11 +14,6 @@ click_counter = ClickCounter()
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    # try:
-    #     verify_github_request(request)
-    # except InvalidSignature:
-    #     abort(403)
-
     contributions = calculate_contributions()
     store.save(contributions)
     return "Ok."
@@ -39,7 +34,7 @@ def clicks():
         print('Count click:', count)
         if count:
             click_counter.add_click_count(count)
-        return jsonify(click_counter.get_current_speed())
+        return jsonify(click_counter.get_current_speed() * 300)
 
 
 @app.route('/')
