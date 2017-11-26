@@ -5,17 +5,20 @@
 
 .x-spinner-item {
 	display: inline-block;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid black;
 }
 
 .x-spinner-item .name {
 	text-align: center;
 	font-family: sans-serif;
-	font-size: 3rem;
+	font-size: 2.5rem;
 }
 
 .x-spinner-item .spinner-image {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
 }
 
 .x-spinner-item .spinner-container {
@@ -29,5 +32,5 @@
 	color: white;
 	font-family: sans-serif;
 	font-weight: bold;
-	font-size: 2rem;
+	font-size: 1.5rem;
 }

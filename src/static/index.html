@@ -42,6 +42,8 @@
                 imageEl = element.querySelector('.spinner-image'),
                 speedEl = element.querySelector('.speed');
 
+            element._view = this;
+
             nameEl.innerText = name;
 
             var propeller = new Propeller(imageEl, {
@@ -49,9 +51,14 @@
                 speed: 0
             });
 
+            var speed = 0;
+
             this.getElement = function() { return element; };
 
-            this.setSpeed = function(speed) {
+            this.getSpeed = function() { return speed; };
+            this.setSpeed = function(newSpeed) {
+                speed = newSpeed;
+
                 speedEl.innerText = (Math.floor(speed * 10000) / 100) + '%';
 
                 propeller.setSpeed(100 * speed);
@@ -77,6 +84,8 @@
                 const spinnerSpeed = data[username];
                 addSpinner(username, spinnerSpeed);
             });
+
+            resort();
         });
         const interval = setInterval(function () {
             $.get('https://wth2017.hypershape.club/speeds', function (data) {
@@ -91,8 +100,47 @@
                         addSpinner(username, spinnerSpeed);
                     }
                 });
+
+                resort();
             });
         }, 3000);
+
+        function resort() {
+            var el = spinnersContainerEl.firstChild;
+
+            var elements = [];
+
+            while (el) {
+                elements.push({
+                    element: el,
+                    speed: el._view.getSpeed()
+                });
+
+                el = el.nextSibling;
+            }
+
+            if (!elements.length) return;
+
+            var lastSpeed = elements[0].speed,
+                isCorrectlySorted = true;
+
+            for (let i = 1; i < elements.length; i++) {
+                if (elements[i].speed > lastSpeed) {
+                    isCorrectlySorted = false;
+                    break;
+                }
+
+                lastSpeed = elements[i].speed;
+            }
+
+            if (isCorrectlySorted) return;
+
+            elements.sort(function(a, b) { return b.speed - a.speed; });
+
+            spinnersContainerEl.innerHTML = '';
+
+            elements.forEach(function(x) { spinnersContainerEl.appendChild(x.element); });
+        }
     });
 </script>
 
