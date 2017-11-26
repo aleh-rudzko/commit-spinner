@@ -25,7 +25,7 @@ class Client(object):
         return response.json()
 
     def get_since(self):
-        return (datetime.utcnow() - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        return (datetime.utcnow() - timedelta(minutes=15)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def verify_github_request(request):
