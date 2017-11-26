@@ -12,6 +12,7 @@
 <body>
 <div id="maincontent" align="center">
     <h1>Spint IT!</h1>
+    <h2 id="speed"></h2>
     <div class="spinitbutton">
         <button id="spinbutton"></button>
     </div>
@@ -26,7 +27,8 @@
                 data: JSON.stringify({clicks: clickCounter}),
                 contentType: 'application/json',
                 url: '/clicks',
-                success: function(){
+                success: function(data){
+                    $('#speed').text(data);
                     clickCounter = 0;
                 }
             })

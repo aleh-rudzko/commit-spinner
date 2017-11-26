@@ -39,7 +39,7 @@ def clicks():
         print(count)
         if count:
             click_counter.add_click_count(count)
-        return "Ok."
+        return jsonify(click_counter.get_current_speed())
 
 
 @app.route('/')
