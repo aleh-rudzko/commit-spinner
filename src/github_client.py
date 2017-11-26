@@ -18,10 +18,14 @@ class Client(object):
         url = '{}/repos/{}/{}/commits'.format(
             self.base_api_url, self.owner, self.repo)
         params = {
-            'since': (datetime.now() - timedelta(hours=1)).isoformat()
+            'since': self.get_since()
+
         }
         response = requests.get(url, params=params)
         return response.json()
+
+    def get_since(self):
+        return (datetime.utcnow() - timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def verify_github_request(request):
