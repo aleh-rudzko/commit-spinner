@@ -3,6 +3,7 @@
 
 body {
     background-color: #fff;
+    margin: 0;
 }
 
 #maincontent {
@@ -13,8 +14,8 @@ body {
 
 .spinitbutton {
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 30%;
+    transform: translate(-50%, 50%);
     position: absolute;
 }
 
@@ -41,7 +42,6 @@ body {
     filter: hue-rotate(230deg);
     width: 221px;
     height: 225px;
-    margin: 70px 0;
 }
 
 .spinitbutton button:active {
